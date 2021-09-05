@@ -5,6 +5,7 @@ const app = express()
 
 app.use(express.json())
 app.use(cors())
+app.use(express.static('build'))
 
 morgan.token('body', function (req) { return JSON.stringify(req.body) })
 
@@ -133,3 +134,5 @@ const PORT = process.env.PORT || 3001
 app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`)
 })
+
+// https://pure-earth-77659.herokuapp.com/api/persons
