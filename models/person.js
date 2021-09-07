@@ -1,5 +1,6 @@
+/* eslint-disable no-unused-vars */
 const mongoose = require('mongoose')
-const uniqueValidator = require('mongoose-unique-validator');
+const uniqueValidator = require('mongoose-unique-validator')
 const url = process.env.MONGODB_URI
 
 console.log('connecting to', url)
@@ -13,16 +14,16 @@ mongoose.connect(url)
   })
 
 const personSchema = new mongoose.Schema({
-  name: { 
-    type: String, 
-    required: true, 
-    unique: true, 
+  name: {
+    type: String,
+    required: true,
+    unique: true,
     minLength: [3, ' must be at least 3 caracters']
   },
-  number: { 
-    type: String, 
-    required: true, 
-    unique: true, 
+  number: {
+    type: String,
+    required: true,
+    unique: true,
     minLength: [8, ' must be at least 8 digits']
   },
 })
@@ -30,14 +31,11 @@ const personSchema = new mongoose.Schema({
 personSchema.plugin(uniqueValidator)
 
 personSchema.set('toJSON', {
-    transform: (document, returnedObject) => {
-      returnedObject.id = returnedObject._id.toString()
-      delete returnedObject._id
-      delete returnedObject.__v
-    }
+  transform: (document, returnedObject) => {
+    returnedObject.id = returnedObject._id.toString()
+    delete returnedObject._id
+    delete returnedObject.__v
+  }
 })
-  
+
 module.exports = mongoose.model('Person', personSchema)
-
-
-
